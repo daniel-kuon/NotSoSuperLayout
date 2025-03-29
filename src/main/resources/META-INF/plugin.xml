@@ -1,0 +1,41 @@
+<idea-plugin>
+    <id>com.github.danielkuon.superlayout</id>
+    <name>Super Layout</name>
+    <vendor>Daniel Kuon</vendor>
+    <description><![CDATA[
+    A plugin for JetBrains IDEs that allows you to save and restore window layouts.
+    <ul>
+        <li>Save current window layout with a custom name</li>
+        <li>Restore previously saved layouts</li>
+        <li>Assign keyboard shortcuts to layouts</li>
+        <li>Automatically activate layouts on specific IDE actions</li>
+    </ul>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <applicationService serviceImplementation="com.github.danielkuon.superlayout.services.LayoutStorageService"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="com.github.danielkuon.superlayout.settings.SuperLayoutConfigurable"
+                id="com.github.danielkuon.superlayout.settings.SuperLayoutConfigurable"
+                displayName="Super Layout"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <group id="SuperLayout.MainMenu" text="Super Layout" description="Super Layout plugin menu">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="SuperLayout.SaveLayout"
+                    class="com.github.danielkuon.superlayout.actions.SaveLayoutAction"
+                    text="Save Current Layout"
+                    description="Save the current window layout"/>
+            <action id="SuperLayout.ManageLayouts"
+                    class="com.github.danielkuon.superlayout.actions.ManageLayoutsAction"
+                    text="Manage Layouts"
+                    description="Manage saved layouts"/>
+        </group>
+    </actions>
+</idea-plugin>
